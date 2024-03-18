@@ -14,7 +14,9 @@ Cada uno de estos problemas nos proporciona la sigiente información:
 2. 'c' = vector
 3. 'A' = matriz
 4. 'b' = vector
-Y solo en el primer fichero de cada conjinto de datos, encontramos también:
+Y solo en el primer fichero de cada conjunto de datos, encontramos también:
 5. *z 
 6. *vb
+
+Para leerlo, creamos una función que se encarga de leer los 3 primeros elementos y los transforma en un 'array' de numpy para facilitar la posterior manipulación de estos.  
 
