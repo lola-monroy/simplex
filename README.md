@@ -20,9 +20,9 @@ Y solo en el primer fichero de cada conjunto de datos, encontramos también:
 Para leerlo, creamos una función que se encarga de leer los 3 primeros elementos y los transforma en un 'array' de numpy para facilitar la posterior manipulación de estos.  
 
 #### Desarrollo del simplex
-Se presentan dos opciones para calcular la solución básica factible inicial (SBF) utilizando la fase I del símplex:
+Para calcular la solución básica factible inicial (SBF) tenemos dos opicones:
 
-1. Integrar la fase I en el código, formulando y resolviendo automáticamente el problema de fase I a partir de los parámetros originales, y luego continuar con la fase II si se encuentra una SBF.
+1. Integrar la fase I en el código y luego continuar con la fase II si se encuentra una SBF.
 2. Implementar solo la fase II del símplex y ejecutarla dos veces: una vez con los parámetros correspondientes al problema de fase I y una SBF inicial trivial, y otra vez con los parámetros originales y la SBF encontrada por la fase I.
 
 Se requiere implementar la regla de Bland para la selección de variables de entrada y salida en caso de empate.
