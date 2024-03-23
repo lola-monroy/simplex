@@ -27,3 +27,19 @@ Para calcular la solución básica factible inicial (SBF) tenemos dos opicones:
 
 Se requiere implementar la regla de Bland para la selección de variables de entrada y salida en caso de empate.
 
+#### Formato de las actualizaciones
+Las sigüientes líneas de código forman parte del bucle iterativo para encontrar la solución óptima del problema de programación lineal.
+
+1. B = A[:, self.base]: operación para seleccionar las columnas de la matriz A correspondientes a las variables **básicas** ('self.base' es ser una lista de índices que representan las variables básicas). Se están seleccionando todas las filas de la matriz A, pero solo las columnas cuyos índices están en la lista 'self.base'.
+2. An = A[:, self.no_base]: selecciona las columnas de la matriz A correspondientes a las variables **no básicas** ('self.no_base' es una lista de índices que representan las variables no básicas). 
+
+3. B_inv = np.linalg.inv(B): calcula la inversa de la matriz B. (B representa la matriz de coeficientes de las variables básicas).
+
+4. x_b = x_b_old + theta * d_b: se está actualizando el vector de variables básicas 'x_b' multiplicando un paso ('theta') por la dirección ('d_b') en la que se va a mover.
+
+5. c_b = c[self.base]: selecciona coeficientes de la función objetivo correspondientes a las variables básicas.
+6. c_n = c[self.no_base]: selecciona los coeficientes de la función objetivo correspondientes a las variables no básicas.
+
+7. z = z_old + theta * rq: se está actualizando el valor de la función objetivo 'z' multiplicando un paso ('theta') por el vector de reducción de costos ('rq').
+
+
