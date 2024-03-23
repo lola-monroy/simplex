@@ -27,6 +27,17 @@ Para calcular la solución básica factible inicial (SBF) tenemos dos opicones:
 
 Se requiere implementar la regla de Bland para la selección de variables de entrada y salida en caso de empate.
 
+#### Clase _Simplex_
+Hemos desarrollado una clase con 3 métodos (1 de los cuales es el de inicialización), para el desarrollo de nuestra práctica. Después de la inicialización de las 3 variables que leemos del fichero (c, A y b), así como la del tamaño de la matriz 'A', procedemos al segundo método. 
+
+Este, que lleva el nomre de **_calcula_**, tiene el propósito de coordinar la resolución del problema utilizando el método Simplex y devolver el resultado final. Lleva a cabo dos fases:
+
+1. **Fase 1**: introduce variables artificiales si es necesario para encontrar una solución inicial factible. Esto se hará cuando el problema inicial no tenga una solución factible. En esta fase, se creará una nueva función objetivo y un conjunto de restricciones con variables artificiales, y se resorverá utilizando el método Simplex (definido posteriormente).
+
+2. **Fase 2**: resuelve el problema original utilizando el método Simplex. Una vez que se haya encontrado una solución factible en la fase 1, esta solución se utilizará como punto de partida para resolver el problema original. En esta fase, se utilizará el método Simplex para optimizar la función objetivo sujeta a las restricciones del problema original.
+
+El tercer método, és el del **_Simplex_**, que realiza iteraciones con el propósito de encontrar una solución óptima 
+
 #### Formato de las actualizaciones
 Las sigüientes líneas de código forman parte del bucle iterativo para encontrar la solución óptima del problema de programación lineal.
 
