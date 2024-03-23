@@ -13,19 +13,12 @@ Cada uno de estos problemas nos proporciona la sigiente información:
 2. 'c' = vector
 3. 'A' = matriz
 4. 'b' = vector
+   
 Y solo en el primer fichero de cada conjunto de datos, encontramos también:
-5. *z 
-6. *vb
+6. *z = función objetivo
+7. *vb = variables básicas
 
 Para leerlo, creamos una función que se encarga de leer los 3 primeros elementos y los transforma en un 'array' de numpy para facilitar la posterior manipulación de estos.  
-
-#### Desarrollo del simplex
-Para calcular la solución básica factible inicial (SBF) tenemos dos opicones:
-
-1. Integrar la fase I en el código y luego continuar con la fase II si se encuentra una SBF.
-2. Implementar solo la fase II del símplex y ejecutarla dos veces: una vez con los parámetros correspondientes al problema de fase I y una SBF inicial trivial, y otra vez con los parámetros originales y la SBF encontrada por la fase I.
-
-Se requiere implementar la regla de Bland para la selección de variables de entrada y salida en caso de empate.
 
 #### Clase _Simplex_
 Hemos desarrollado una clase con 3 métodos (1 de los cuales es el de inicialización), para el desarrollo de nuestra práctica. Después de la inicialización de las 3 variables que leemos del fichero (c, A y b), así como la del tamaño de la matriz 'A', procedemos al segundo método. 
@@ -36,7 +29,22 @@ Este, que lleva el nomre de **_calcula_**, tiene el propósito de coordinar la r
 
 2. **Fase 2**: resuelve el problema original utilizando el método Simplex. Una vez que se haya encontrado una solución factible en la fase 1, esta solución se utilizará como punto de partida para resolver el problema original. En esta fase, se utilizará el método Simplex para optimizar la función objetivo sujeta a las restricciones del problema original.
 
-El tercer método, és el del **_Simplex_**, que realiza iteraciones con el propósito de encontrar una solución óptima 
+El tercer método, és el del **_Simplex_**, que realiza iteraciones con el propósito de encontrar una solución óptima. Lo hace mejorando la solución actual en cada iteracion hasta alcanzar la solución óptima o determinar que el problema no está acotado. El orden en el que realiza las acciones y actualizaciones es el siguiente: 
+
+1. Se ordenan las variables no básicas (no_base).
+2. Se calculan matrices B, An, y B_inv basadas en las matrices originales A, b, y c, respectivamente.
+3. Se calculan las variables básicas (x_b) resolviendo el sistema de ecuaciones lineales B * x_b = b utilizando la matriz inversa B_inv.
+4. Se calcula el vector r, que representa el costo reducido de las variables no básicas.
+e. Se calcula el valor de la función objetivo z.
+f. Si todos los costos reducidos son mayores o iguales a cero, se ha encontrado una solución óptima y se devuelve el valor de z y las variables básicas.
+g. Si hay algún costo reducido negativo, se elige una variable no básica para entrar en la base (indice_variable_entra) basándose en el criterio de mínimo costo reducido negativo.
+h. Se calcula la dirección factible (d_b) en la que se puede mover la solución para mejorar la función objetivo.
+i. Si todas las direcciones son no positivas, el problema no está acotado y se devuelve un mensaje indicando esto.
+j. Se selecciona una variable básica para salir de la base (variable_sale) basándose en el criterio de mínima razón. Se intercambian las variables básicas y no básicas correspondientes.
+
+Se repite el proceso hasta que se encuentra una solución óptima o se determina que el problema no está acotado.
+
+Podemos decir que, resumidamente, _calcula_ coordina las fases del algoritmo para resolver el problema, mientras que el método _SIMPLEX_ implementa el propio algoritmo Simplex.
 
 #### Formato de las actualizaciones
 Las sigüientes líneas de código forman parte del bucle iterativo para encontrar la solución óptima del problema de programación lineal.
