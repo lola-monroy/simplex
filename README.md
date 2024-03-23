@@ -35,19 +35,19 @@ El tercer método, és el del **_Simplex_**, que realiza iteraciones con el prop
 2. Se calculan matrices B, An, y B_inv basadas en las matrices originales A, b, y c, respectivamente.
 3. Se calculan las variables básicas (x_b) resolviendo el sistema de ecuaciones lineales B * x_b = b utilizando la matriz inversa B_inv.
 4. Se calcula el vector r, que representa el costo reducido de las variables no básicas.
-e. Se calcula el valor de la función objetivo z.
-f. Si todos los costos reducidos son mayores o iguales a cero, se ha encontrado una solución óptima y se devuelve el valor de z y las variables básicas.
-g. Si hay algún costo reducido negativo, se elige una variable no básica para entrar en la base (indice_variable_entra) basándose en el criterio de mínimo costo reducido negativo.
-h. Se calcula la dirección factible (d_b) en la que se puede mover la solución para mejorar la función objetivo.
-i. Si todas las direcciones son no positivas, el problema no está acotado y se devuelve un mensaje indicando esto.
-j. Se selecciona una variable básica para salir de la base (variable_sale) basándose en el criterio de mínima razón. Se intercambian las variables básicas y no básicas correspondientes.
+5. Se calcula el valor de la función objetivo z.
+6. Si todos los costos reducidos son mayores o iguales a cero, se ha encontrado una solución óptima y se devuelve el valor de z y las variables básicas.
+7. Si hay algún costo reducido negativo, se elige una variable no básica para entrar en la base (indice_variable_entra) basándose en el criterio de mínimo costo reducido negativo.
+8. Se calcula la dirección factible (d_b) en la que se puede mover la solución para mejorar la función objetivo.
+9. Si todas las direcciones son no positivas, el problema no está acotado y se devuelve un mensaje indicando esto.
+10. Se selecciona una variable básica para salir de la base (variable_sale) basándose en el criterio de mínima razón. Se intercambian las variables básicas y no básicas correspondientes.
 
 Se repite el proceso hasta que se encuentra una solución óptima o se determina que el problema no está acotado.
 
 Podemos decir que, resumidamente, _calcula_ coordina las fases del algoritmo para resolver el problema, mientras que el método _SIMPLEX_ implementa el propio algoritmo Simplex.
 
 #### Formato de las actualizaciones
-Las sigüientes líneas de código forman parte del bucle iterativo para encontrar la solución óptima del problema de programación lineal.
+Tras esta explicación, nos gustaría entrar más en detalle en la explicación de las líneas de código forman parte del bucle iterativo para encontrar la solución óptima del problema de programación lineal.
 
 1. B = A[:, self.base]: operación para seleccionar las columnas de la matriz A correspondientes a las variables **básicas** ('self.base' es ser una lista de índices que representan las variables básicas). Se están seleccionando todas las filas de la matriz A, pero solo las columnas cuyos índices están en la lista 'self.base'.
 2. An = A[:, self.no_base]: selecciona las columnas de la matriz A correspondientes a las variables **no básicas** ('self.no_base' es una lista de índices que representan las variables no básicas). 
