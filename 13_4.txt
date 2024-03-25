@@ -3,9 +3,6 @@ OPT/GIA/FIB Curso 2022-23, ejercicio implementacion del simplex : cjt. datos 13,
 --------------------------------------------------------------------------------------------
 Warning: one or more outputs not assigned in call (1)
 c=
-
- Columns 1 to 22
-
  -63 -80 -12 -46 -51 -52 -25 -85 -25 -88 -53 -77 -22 -68   0   0   0   0   0   0   0   0   0   0 
 
 A=
