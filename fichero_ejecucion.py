@@ -7,11 +7,11 @@ nombre_archivo+='.txt'
 c, A, b = leer_archivo(nombre_archivo)
 
 # Mostrar las matrices
-print(" La matriz c és:",end=' ')
+print(" La matriz c es:",end=' ')
 print(c)
-print("\n La matriz A és:",end=' ')
+print("\n La matriz A es:",end=' ')
 print(A)
-print("\n El vector b és:",end=' ')
+print("\n El vector b es:",end=' ')
 print(b)
 
 simplex = SIMPLEX(c, A, b)
