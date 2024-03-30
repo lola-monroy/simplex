@@ -94,7 +94,7 @@ class SIMPLEX:
 
         theta,indice_variable_sale=self.theta(d_b,x_b)
         print('Fase 2')
-        print('[Dani_Lola_SIMPLEX] Iteració ',self.iteracion,':p = ',indice_variable_sale,',q = ',indice_variable_entra,',B(p) = ',self.base[indice_variable_sale],',theta*= ',theta,',z= ',z)
+        print('[Dani_Lola_SIMPLEX] Iteració ',self.iteracion,':p = ',indice_variable_sale,', q = ',indice_variable_entra,', B(p) = ',self.base[indice_variable_sale],', theta*= ',theta,', z= ',z)
         self.iteracion+=1
 
         variable_sale = self.base[indice_variable_sale]
