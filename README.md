@@ -48,5 +48,5 @@ Se repite el proceso hasta que se encuentra una solución óptima o se determina
 Podemos decir que, resumidamente, _calcula_ coordina las fases del algoritmo para resolver el problema llamando primero a un método de la fase1(que llamará al siguiente método de la fase) y después al primero de los métodos de la segunda fase que llamará a su vez el siguiente método de la pareja.
 
 #### Actualizaciones
-Querémos especificar que, mientras actualizamos la inversa debido a que este es un cálculo complejo, largo e inestable, vimos inncecesario realizar los cálculos de actualización de la Xb o la z y simplemente los recalculamos de nuevo.
+Queremos especificar que, mientras actualizamos la inversa debido a que este es un cálculo complejo, largo e inestable, vimos inncecesario realizar los cálculos de actualización de la Xb o la z y simplemente los recalculamos de nuevo.
 
