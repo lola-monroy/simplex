@@ -4,7 +4,8 @@ Trabajaremos para resolver un total de 8 problemas entre los dos miembros del gr
 
 #### Uso de biblioteca NumPy
 La biblioteca NumPy facilita el procesamiento numérico en el ámbito de matrices y vectores, por lo que nos será extremadamente útil al computar multiplicaciones entre estos . Esta biblioteca proporciona los 'arrays', que permiten almacenar y manipular grandes conjuntos de datos numéricos. 
-
+#### Ejecución del programa
+Para ejecutar el programa diríjase al fichero de nombre fichero_ejecucion y ejecutelo. A continuación se le preguntará por un fichero(problema) que ejecutar: introduzca su nombre(sin el .txt) y el probrema será resuelto y sus resultados se mostrarán por pantalla.
 #### Leyendo el archivo de entrada
 El archivo de entrada consta de diferentes problemas, agrupados en grupos de 4. Es decir, cada 4 problemas se agrupan en un conjunto de datos. 
 
@@ -23,16 +24,16 @@ Para leerlo, creamos una función que se encarga de leer los 3 primeros elemento
 #### Clase _Simplex_
 Hemos desarrollado una clase con 3 métodos (1 de los cuales es el de inicialización), para el desarrollo de nuestra práctica. Después de la inicialización de las 3 variables que leemos del fichero (c, A y b), así como la del tamaño de la matriz 'A', procedemos al segundo método. 
 
-Este, que lleva el nomre de **_calcula_**, tiene el propósito de coordinar la resolución del problema utilizando el método Simplex y devolver el resultado final. Lleva a cabo dos fases:
+Este, que lleva el nombre de **_calcula_**, tiene el propósito de coordinar la resolución del problema utilizando el método Simplex y devolver el resultado final. Lleva a cabo dos fases:
 
-1. **Fase 1**: introduce variables artificiales si es necesario para encontrar una solución inicial factible. Esto se hará cuando el problema inicial no tenga una solución factible. En esta fase, se creará una nueva función objetivo y un conjunto de restricciones con variables artificiales, y se resorverá utilizando el método Simplex (definido posteriormente).
+1. **Fase 1**: introduce variables artificiales si es necesario para encontrar una solución inicial factible. Esto se hará cuando el problema inicial no tenga una solución factible. En esta fase, se creará una nueva función objetivo y un conjunto de restricciones con variables artificiales, y se resorverá utilizando el método Simplex (definido posteriormente). Esta fase está dividida en dos métodos de nombre fase1_1 y fase1_2. Esto es así por motivos de programación para poder implementar de manera eficiente la actualización de la inversa ahorrando condiciones que puedan ralentizar el algoritmo.
 
-2. **Fase 2**: resuelve el problema original utilizando el método Simplex. Una vez que se haya encontrado una solución factible en la fase 1, esta solución se utilizará como punto de partida para resolver el problema original. En esta fase, se utilizará el método Simplex para optimizar la función objetivo sujeta a las restricciones del problema original.
+2. **Fase 2**: resuelve el problema original utilizando el método Simplex. Una vez que se haya encontrado una solución factible en la fase 1, esta solución se utilizará como punto de partida para resolver el problema original. En esta fase, se utilizará el método Simplex para optimizar la función objetivo sujeta a las restricciones del problema original. Esta fase está dividia en otra pareja de métodos distintos a la pareja de la fase anterior(y por los mismos motivos) de nombres SIMPLEX y SIMPLEX2
 
-El tercer método, és el del **_Simplex_**, que realiza iteraciones con el propósito de encontrar una solución óptima. Lo hace mejorando la solución actual en cada iteracion hasta alcanzar la solución óptima o determinar que el problema no está acotado. El orden en el que realiza las acciones y actualizaciones es el siguiente: 
-
+Hay un tercer método, el del **_Theta_**, que realiza el cálculo de la Theta(longitud de paso) hayando la menor y también la variable a salir; y un cuarto método, el de **actualizacion_inv** que realiza, como su nombre indica, la actualización de la inversa.
+Fase 1 y Fase 2, como hemos visto, se dividen en dos métodos uno que se ejecuta una única vez y otro que se itera hasta hayar la solución pero de manera igual funcionan de la siguiente manera:
 1. Se ordenan las variables no básicas (no_base).
-2. Se calculan matrices B, An, y B_inv basadas en las matrices originales A, b, y c, respectivamente.
+2. Se calculan matrices B, An, y B_inv(o se actualiza si estamos en el segundo método de la pareja) basadas en las matrices originales A, b, y c, respectivamente.
 3. Se calculan las variables básicas (x_b) resolviendo el sistema de ecuaciones lineales B * x_b = b utilizando la matriz inversa B_inv.
 4. Se calcula el vector r, que representa el costo reducido de las variables no básicas.
 5. Se calcula el valor de la función objetivo z.
@@ -44,21 +45,8 @@ El tercer método, és el del **_Simplex_**, que realiza iteraciones con el prop
 
 Se repite el proceso hasta que se encuentra una solución óptima o se determina que el problema no está acotado.
 
-Podemos decir que, resumidamente, _calcula_ coordina las fases del algoritmo para resolver el problema, mientras que el método _SIMPLEX_ implementa el propio algoritmo Simplex.
+Podemos decir que, resumidamente, _calcula_ coordina las fases del algoritmo para resolver el problema llamando primero a un método de la fase1(que llamará al siguiente método de la fase) y después al primero de los métodos de la segunda fase que llamará a su vez el siguiente método de la pareja.
 
-#### Formato de las actualizaciones
-Tras esta explicación, nos gustaría entrar más en detalle en la explicación de las líneas de código forman parte del bucle iterativo para encontrar la solución óptima del problema de programación lineal.
-
-1. B = A[:, self.base]: operación para seleccionar las columnas de la matriz A correspondientes a las variables **básicas** ('self.base' es ser una lista de índices que representan las variables básicas). Se están seleccionando todas las filas de la matriz A, pero solo las columnas cuyos índices están en la lista 'self.base'.
-2. An = A[:, self.no_base]: selecciona las columnas de la matriz A correspondientes a las variables **no básicas** ('self.no_base' es una lista de índices que representan las variables no básicas). 
-
-3. B_inv = np.linalg.inv(B): calcula la inversa de la matriz B. (B representa la matriz de coeficientes de las variables básicas).
-
-4. x_b = x_b_old + theta * d_b: se está actualizando el vector de variables básicas 'x_b' multiplicando un paso ('theta') por la dirección ('d_b') en la que se va a mover.
-
-5. c_b = c[self.base]: selecciona coeficientes de la función objetivo correspondientes a las variables básicas.
-6. c_n = c[self.no_base]: selecciona los coeficientes de la función objetivo correspondientes a las variables no básicas.
-
-7. z = z_old + theta * rq: se está actualizando el valor de la función objetivo 'z' multiplicando un paso ('theta') por el vector de reducción de costos ('rq').
-
+#### Actualizaciones
+Querémos especificar que, mientras actualizamos la inversa debido a que este es un cálculo complejo, largo e inestable, vimos inncecesario realizar los cálculos de actualización de la Xb o la z y simplemente los recalculamos de nuevo.
 
